@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "ccfcc649-8baa-4836-925b-1f0f2a10a589",
+		"name": "Follow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "userFollowsAnotherUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://assigmentfs2.herokuapp.com/api/users/6203163e0815e9ae8623b7db/followed/620317060815e9ae8623b7df",
+					"protocol": "https",
+					"host": [
+						"assigmentfs2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"6203163e0815e9ae8623b7db",
+						"followed",
+						"620317060815e9ae8623b7df"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllUsersFollowedByUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://assigmentfs2.herokuapp.com/api/users/6203163e0815e9ae8623b7db/followed",
+					"protocol": "https",
+					"host": [
+						"assigmentfs2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"6203163e0815e9ae8623b7db",
+						"followed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllUsersThatFollowUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://assigmentfs2.herokuapp.com/api/users/620317060815e9ae8623b7df/following",
+					"protocol": "https",
+					"host": [
+						"assigmentfs2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"620317060815e9ae8623b7df",
+						"following"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userUnfollowsAnotherUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://assigmentfs2.herokuapp.com/api/users/6203163e0815e9ae8623b7db/unfollows/620317060815e9ae8623b7df",
+					"protocol": "https",
+					"host": [
+						"assigmentfs2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"6203163e0815e9ae8623b7db",
+						"unfollows",
+						"620317060815e9ae8623b7df"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
