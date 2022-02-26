@@ -7,9 +7,9 @@ import Tuit from "../models/tuits/Tuit";
 import TuitDaoI from "../interfaces/TuitDaoI";
 
 /**
- * @class UserDao Implements Data Access Object managing data storage
+ * @class TuitDao Implements Data Access Object managing data storage
  * of Users
- * @property {UserDao} userDao Private single instance of UserDao
+ * @property {TuitDao} userDao Private single instance of TuitDao
  */
 export default class TuitDao implements TuitDaoI{
     private static tuitDao: TuitDao | null = null;

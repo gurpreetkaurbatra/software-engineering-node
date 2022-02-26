@@ -75,7 +75,7 @@ export default class FollowController implements FollowControllerI {
      * database
      */
     userFollowsAnotherUser = (req: Request, res: Response) =>
-        FollowController.followDao.userFollowsAnotherUser(req.params.uid, req.params.uid1)
+        FollowController.followDao.userFollowsAnotherUser(req.params.uid1, req.params.uid2)
             .then(follows => res.json(follows));
 
     /**

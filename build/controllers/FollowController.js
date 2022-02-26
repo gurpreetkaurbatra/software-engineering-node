@@ -49,7 +49,7 @@ class FollowController {
          * body formatted as JSON containing the new follow that was inserted in the
          * database
          */
-        this.userFollowsAnotherUser = (req, res) => FollowController.followDao.userFollowsAnotherUser(req.params.uid, req.params.uid1)
+        this.userFollowsAnotherUser = (req, res) => FollowController.followDao.userFollowsAnotherUser(req.params.uid1, req.params.uid2)
             .then(follows => res.json(follows));
         /**
          * @param {Request} req Represents request from client, including the

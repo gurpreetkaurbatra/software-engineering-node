@@ -18,9 +18,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const TuitModel_1 = __importDefault(require("../mongoose/tuits/TuitModel"));
 /**
- * @class UserDao Implements Data Access Object managing data storage
+ * @class TuitDao Implements Data Access Object managing data storage
  * of Users
- * @property {UserDao} userDao Private single instance of UserDao
+ * @property {TuitDao} userDao Private single instance of TuitDao
  */
 class TuitDao {
     constructor() {

@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const FollowSchema = new mongoose_1.default.Schema({
-    userFollowed: { type: mongoose_1.Schema.Types.ObjectId, ref: "FollowModel" },
-    userFollowing: { type: mongoose_1.Schema.Types.ObjectId, ref: "FollowModel" },
+    userFollowed: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
+    userFollowing: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
 }, { collection: "follows" });
 exports.default = FollowSchema;

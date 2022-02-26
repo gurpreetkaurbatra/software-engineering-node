@@ -4,7 +4,7 @@ import Follow from "../../models/follows/Follow";
 
 
 const FollowSchema = new mongoose.Schema<Follow>({
-    userFollowed: {type: Schema.Types.ObjectId, ref: "FollowModel"},
-    userFollowing: {type: Schema.Types.ObjectId, ref: "FollowModel"},
+    userFollowed: {type: Schema.Types.ObjectId, ref: "UserModel"},
+    userFollowing: {type: Schema.Types.ObjectId, ref: "UserModel"},
 }, {collection: "follows"});
 export default FollowSchema;
