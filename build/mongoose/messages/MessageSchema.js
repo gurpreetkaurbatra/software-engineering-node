@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const MessageSchema = new mongoose_1.default.Schema({
-    message: { type: String, required: true },
+    message: { type: String },
     to: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
     from: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
     sentOn: { type: Date, default: Date.now }

@@ -51,12 +51,6 @@ class UserDao {
         this.updateUser = (uid, user) => __awaiter(this, void 0, void 0, function* () {
             return UserModel_1.default.updateOne({ _id: uid }, { $set: user });
         });
-        /**
-         * Updates user with new values in database. Useful for testing
-         * @param {string} uid Primary key of user to be modified
-         * @param {User} salary User object containing properties and their new values
-         * database
-         */
         this.updateUserSalaryByUsername = (username, salary) => __awaiter(this, void 0, void 0, function* () {
             return UserModel_1.default.updateOne({ username }, { $set: { salary: salary } });
         });
@@ -72,17 +66,8 @@ class UserDao {
          * database
          */
         this.deleteAllUsers = () => __awaiter(this, void 0, void 0, function* () { return UserModel_1.default.deleteMany({}); });
-        /**
-         * Fetches all users from the database. Useful for testing
-         * @returns Promise To be notified when all users are removed from the
-         * database
-         */
+        this.deleteUsersByUsername = (username) => __awaiter(this, void 0, void 0, function* () { return UserModel_1.default.deleteMany({ username }); });
         this.findUserByCredentials = (username, password) => __awaiter(this, void 0, void 0, function* () { return UserModel_1.default.findOne({ username: username, password: password }); });
-        /**
-         * Fetches all users from the database. Useful for testing
-         * @returns Promise To be notified when all users are removed from the
-         * database
-         */
         this.findUserByUsername = (username) => __awaiter(this, void 0, void 0, function* () { return UserModel_1.default.findOne({ username }); });
     }
 }

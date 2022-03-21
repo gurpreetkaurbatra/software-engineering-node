@@ -7,8 +7,8 @@ import User from "../users/User";
 /**
  * @typedef Follow Represents follows relationship between a user and a tuit,
  * as in a user follows a tuit
- * @property {userFollowed} userFollowed by another user
- * @property {userFollowing} Userfollowing another user
+ * @property {Tuit} tuit Tuit being followed
+ * @property {User} followedBy User liking the tuit
  */
 
 export default interface Follow {

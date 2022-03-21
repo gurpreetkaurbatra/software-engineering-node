@@ -13,51 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const FollowModel_1 = __importDefault(require("../mongoose/follows/FollowModel"));
-/**
- * @class FollowDao Implements Data Access Object managing data storage
- * of Users
- * @property {FollowDao} userDao Private single instance of FollowDao
- */
 class FollowDao {
     constructor() {
-        /**
-         * Fetches all users from the database that the user follows.
-         * @param tid primary key to fetch bookmarked tuits
-         * @returns Promise To be notified when all users are returned from the
-         * database
-         */
         this.findAllUsersFollowedByUser = (uid) => __awaiter(this, void 0, void 0, function* () {
             return FollowModel_1.default
-                .find({ userFollowing: uid })
+                .find({ user: uid })
                 .populate("userFollowed")
                 .exec();
         });
-        /**
-         * Fetches all users from the database that follows user.
-         * @param uid primary key to fetch bookmarked tuits by user
-         * @returns Promise To be notified when all tuits are returned from the
-         * database
-         */
         this.findAllUsersThatFollowUser = (uid) => __awaiter(this, void 0, void 0, function* () {
             return FollowModel_1.default
                 .find({ userFollowed: uid })
                 .populate("userFollowing")
                 .exec();
         });
-        /**
-         * Creates a entry of a user following another user.
-         * @param uid, uid1 primary key to create follow user
-         * @returns Promise To be notified when all tuits are created from the
-         * database
-         */
-        this.userFollowsAnotherUser = (uid, uid1) => __awaiter(this, void 0, void 0, function* () { return FollowModel_1.default.create({ userFollowed: uid1, userFollowing: uid }); });
-        /**
-         * Deletes user following another user.
-         * @param uid, uid1 primary key to delete followed user
-         * @returns Promise To be notified when all followed user are deleted from the
-         * database
-         */
-        this.userUnfollowsAnotherUser = (uid, uid1) => __awaiter(this, void 0, void 0, function* () { return FollowModel_1.default.deleteOne({ userFollowed: uid1, userFollowing: uid }); });
+        this.userFollowsAnotherUser = (uid, uid1) => __awaiter(this, void 0, void 0, function* () { return FollowModel_1.default.create({ userFollowed: uid1, user: uid }); });
+        this.userUnfollowsAnotherUser = (uid, uid1) => __awaiter(this, void 0, void 0, function* () { return FollowModel_1.default.deleteOne({ userFollowed: uid1, user: uid }); });
     }
 }
 exports.default = FollowDao;

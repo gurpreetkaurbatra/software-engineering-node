@@ -77,7 +77,10 @@ class UserController {
          */
         this.deleteAllUsers = (req, res) => UserController.userDao.deleteAllUsers()
             .then((status) => res.send(status));
-        this.login = (req, res) => UserController.userDao.findUserByCredentials(req.body.username, req.body.password)
+        this.deleteUsersByUsername = (req, res) => UserController.userDao.deleteUsersByUsername(req.params.username)
+            .then(status => res.send(status));
+        this.login = (req, res) => UserController.userDao
+            .findUserByCredentials(req.body.username, req.body.password)
             .then(user => {
             res.json(user);
         });
@@ -98,10 +101,6 @@ UserController.userController = null;
 UserController.getInstance = (app) => {
     if (UserController.userController === null) {
         UserController.userController = new UserController();
-        // for testing without postman. Not RESTful
-        app.get("/api/users/create", UserController.userController.createUser);
-        app.get("/api/users/:uid/delete", UserController.userController.deleteUser);
-        app.get("/api/users/delete", UserController.userController.deleteAllUsers);
         // RESTful User Web service API
         app.get("/api/users", UserController.userController.findAllUsers);
         app.get("/api/users/:uid", UserController.userController.findUserById);
@@ -109,6 +108,12 @@ UserController.getInstance = (app) => {
         app.put("/api/users/:uid", UserController.userController.updateUser);
         app.delete("/api/users/:uid", UserController.userController.deleteUser);
         app.delete("/api/users", UserController.userController.deleteAllUsers);
+        app.post("/api/login", UserController.userController.login);
+        // for testing. Not RESTful
+        app.get("/api/users/create", UserController.userController.createUser);
+        app.get("/api/users/id/:uid/delete", UserController.userController.deleteUser);
+        app.get("/api/users/username/:username/delete", UserController.userController.deleteUsersByUsername);
+        app.get("/api/users/delete", UserController.userController.deleteAllUsers);
     }
     return UserController.userController;
 };

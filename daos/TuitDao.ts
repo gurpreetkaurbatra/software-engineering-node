@@ -7,9 +7,9 @@ import Tuit from "../models/tuits/Tuit";
 import TuitDaoI from "../interfaces/TuitDaoI";
 
 /**
- * @class TuitDao Implements Data Access Object managing data storage
+ * @class UserDao Implements Data Access Object managing data storage
  * of Users
- * @property {TuitDao} userDao Private single instance of TuitDao
+ * @property {UserDao} userDao Private single instance of UserDao
  */
 export default class TuitDao implements TuitDaoI{
     private static tuitDao: TuitDao | null = null;
@@ -40,4 +40,7 @@ export default class TuitDao implements TuitDaoI{
             {$set: tuit});
     deleteTuit = async (uid: string): Promise<any> =>
         TuitModel.deleteOne({_id: uid});
+
+    deleteTuitByContent = async (tuit: string): Promise<any> =>
+        TuitModel.deleteMany({tuit});
 }
