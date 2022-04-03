@@ -1,22 +1,28 @@
-import {Request, Response, Express} from "express";
+import {Express, Request, Response} from "express";
 import UserDao from "../daos/UserDao";
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const AuthenticationController = (app: Express) => {
 
     const userDao: UserDao = UserDao.getInstance();
-
     const login = async (req: Request, res: Response) => {
+
+        console.log("==> login")
+        console.log("==> req.session")
+        console.log(req.session)
+
         const user = req.body;
         const username = user.username;
         const password = user.password;
+        console.log(password)
         const existingUser = await userDao
             .findUserByUsername(username);
         const match = await bcrypt.compare(password, existingUser.password);
 
         if (match) {
-            existingUser.password = '*****';
+            existingUser.password = '***';
             // @ts-ignore
             req.session['profile'] = existingUser;
             res.json(existingUser);
@@ -25,7 +31,11 @@ const AuthenticationController = (app: Express) => {
         }
     }
 
-    const signup = async (req: Request, res: Response) => {
+    const register = async (req: Request, res: Response) => {
+        console.log("==> register")
+        console.log("==> req.session")
+        console.log(req.session)
+
         const newUser = req.body;
         const password = newUser.password;
         const hash = await bcrypt.hash(password, saltRounds);
@@ -48,8 +58,6 @@ const AuthenticationController = (app: Express) => {
 
     const profile = (req: Request, res: Response) => {
         // @ts-ignore
-        // The user interface will use the existence of the profile or the error status to
-        // conclude whether someone's logged in or not.
         const profile = req.session['profile'];
         if (profile) {
             res.json(profile);
@@ -64,8 +72,9 @@ const AuthenticationController = (app: Express) => {
         res.sendStatus(200);
     }
 
+// app.post("/api/auth/signup", signup);
     app.post("/api/auth/login", login);
-    app.post("/api/auth/signup", signup);
+    app.post("/api/auth/register", register);
     app.post("/api/auth/profile", profile);
     app.post("/api/auth/logout", logout);
 }
