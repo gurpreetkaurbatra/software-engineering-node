@@ -42,7 +42,7 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    origin: ["http://localhost:3000", 'https://624935243a7b7f205bb79d0e--upbeat-morse-837452.netlify.app', "*"]
+    origin: ["http://localhost:3000",'https://upbeat-morse-837452.netlify.app']
 }));
 const SECRET = 'process.env.SECRET';
 let sess = {
