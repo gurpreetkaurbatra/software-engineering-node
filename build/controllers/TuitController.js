@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @file Controller RESTful Web service API for tuits resource
  */
 const TuitDao_1 = __importDefault(require("../daos/TuitDao"));
+"Access-Control-Allow-Origin: *";
 /**
  * @class TuitController Implements RESTful Web service API for tuits resource.
  * Defines the following HTTP endpoints:
@@ -34,6 +35,14 @@ class TuitController {
         this.findAllTuits = (req, res) => TuitController.tuitDao.findAllTuits()
             .then((tuits) => res.json(tuits));
         /**
+         * @param {Request} req Represents request from client, including path
+         * parameter tid identifying the primary key of the tuit to be retrieved
+         * @param {Response} res Represents response to client, including the
+         * body formatted as JSON containing the tuit that matches the user ID
+         */
+        this.findTuitById = (req, res) => TuitController.tuitDao.findTuitById(req.params.uid)
+            .then((tuit) => res.json(tuit));
+        /**
          * Retrieves all tuits from the database for a particular user and returns
          * an array of tuits.
          * @param {Request} req Represents request from client
@@ -49,14 +58,6 @@ class TuitController {
                 .then((tuits) => res.json(tuits));
         };
         /**
-         * @param {Request} req Represents request from client, including path
-         * parameter tid identifying the primary key of the tuit to be retrieved
-         * @param {Response} res Represents response to client, including the
-         * body formatted as JSON containing the tuit that matches the user ID
-         */
-        this.findTuitById = (req, res) => TuitController.tuitDao.findTuitById(req.params.uid)
-            .then((tuit) => res.json(tuit));
-        /**
          * @param {Request} req Represents request from client, including body
          * containing the JSON object for the new tuit to be inserted in the
          * database
@@ -64,8 +65,15 @@ class TuitController {
          * body formatted as JSON containing the new tuit that was inserted in the
          * database
          */
-        this.createTuitByUser = (req, res) => TuitController.tuitDao.createTuitByUser(req.params.uid, req.body)
-            .then((tuit) => res.json(tuit));
+        this.createTuitByUser = (req, res) => {
+            // @ts-ignore
+            let userId = req.params.uid === "my" && req.session['profile'] ?
+                // @ts-ignore
+                req.session['profile']._id : req.params.uid;
+            console.log(userId);
+            TuitController.tuitDao.createTuitByUser(userId, req.body)
+                .then((tuit) => res.json(tuit));
+        };
         /**
          * @param {Request} req Represents request from client, including path
          * parameter tid identifying the primary key of the tuit to be modified
@@ -82,8 +90,6 @@ class TuitController {
          */
         this.deleteTuit = (req, res) => TuitController.tuitDao.deleteTuit(req.params.uid)
             .then((status) => res.send(status));
-        this.deleteTuitByContent = (req, res) => TuitController.tuitDao.deleteTuitByContent(req.params.tuitString)
-            .then(status => res.send(status));
     }
 }
 exports.default = TuitController;
@@ -104,8 +110,6 @@ TuitController.getInstance = (app) => {
         app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
         app.put("/api/tuits/:uid", TuitController.tuitController.updateTuit);
         app.delete("/api/tuits/:uid", TuitController.tuitController.deleteTuit);
-        //for Testing
-        app.get("/api/tuits/:tuitString/delete", TuitController.tuitController.deleteTuitByContent);
     }
     return TuitController.tuitController;
 };
