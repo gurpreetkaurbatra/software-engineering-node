@@ -103,6 +103,7 @@
  
  
      /**
+      * Method to toggle the likes tuits by the user.
       * @param {Request} req Represents request from client, including the
       * path parameters uid and tid representing the user that is liking the tuit
       * and the tuit being liked
