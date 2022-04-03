@@ -3,7 +3,7 @@
  */
  import {Express, Request, Response} from "express";
  import LikeDao from "../daos/LikeDao";
- import LikeControllerI from "../interfaces/LikeController";
+ import LikeControllerI from "../interfaces/LikeControllerI";
  import TuitDao from "../daos/TuitDao";
  
  /**
