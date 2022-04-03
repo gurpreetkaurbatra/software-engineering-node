@@ -10,6 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *     <li>users</li>
  *     <li>tuits</li>
  *     <li>likes</li>
+ *     <li>dislikes</li>
+ *     <li>message</li>
+ *     <li>follow</li>
  * </ul>
  *
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
@@ -41,7 +44,7 @@ mongoose_1.default.connect(connectionString);
 const app = (0, express_1.default)();
 app.use(cors({
     credentials: true,
-    origin: ["http://localhost:3000", 'https://upbeat-morse-837452.netlify.app', "*"]
+    origin: ["http://localhost:3000", 'https://upbeat-morse-837452.netlify.app']
 }));
 const SECRET = 'process.env.SECRET';
 let sess = {
