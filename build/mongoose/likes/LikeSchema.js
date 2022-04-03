@@ -1,4 +1,7 @@
 "use strict";
+/**
+ * @file Implements mongoose schema for Like
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -20,6 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
+/**
+ * @typedef Like Represents Like made on Tuits
+ * @property {ObjectId[]} tuit Array of Tuit IDs
+ * @property {ObjectId[]} likedBy Array of User IDs
+ */
 const LikeSchema = new mongoose_1.default.Schema({
     tuit: { type: mongoose_1.Schema.Types.ObjectId, ref: "TuitModel" },
     likedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },

@@ -1,4 +1,7 @@
 "use strict";
+/**
+ * @file Implements mongoose schema for Tuit
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -20,6 +23,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
+/**
+ * @typedef Tuit Represents tuits posted on the tuit website
+ * @property {string} tuit the description or content of the tuit
+ * @property {ObjectId[]} postedBy Array of User IDs
+ * @property {Date} postedOn the date on which the tuit was posted
+ */
 const TuitSchema = new mongoose_1.default.Schema({
     tuit: { type: String, required: true },
     postedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
@@ -29,9 +38,10 @@ const TuitSchema = new mongoose_1.default.Schema({
     avatarLogo: String,
     imageOverlay: String,
     stats: {
-        replies: Number,
-        retuits: Number,
-        likes: Number
+        replies: { type: Number, default: 0 },
+        retuits: { type: Number, default: 0 },
+        likes: { type: Number, default: 0 },
+        dislikes: { type: Number, default: 0 }
     }
 }, { collection: "tuits" });
 exports.default = TuitSchema;
