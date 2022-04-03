@@ -31,6 +31,7 @@ class TuitDao {
         });
         this.findAllTuitsByUser = (uid) => __awaiter(this, void 0, void 0, function* () {
             return TuitModel_1.default.find({ postedBy: uid })
+                .sort({ 'postedOn': -1 })
                 .populate("postedBy")
                 .exec();
         });

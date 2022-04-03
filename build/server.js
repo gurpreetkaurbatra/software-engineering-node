@@ -24,7 +24,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const BookmarkController_1 = __importDefault(require("./controllers/BookmarkController"));
 const FollowController_1 = __importDefault(require("./controllers/FollowController"));
 const MessageController_1 = __importDefault(require("./controllers/MessageController"));
+const AuthenticationController_1 = __importDefault(require("./controllers/AuthenticationController"));
 var cors = require('cors');
+const session = require("express-session");
 // build the connection string
 const PROTOCOL = "mongodb+srv";
 const DB_USERNAME = "node";
@@ -36,8 +38,25 @@ const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${
 // connect to the database
 mongoose_1.default.connect(connectionString);
 const app = (0, express_1.default)();
+app.use(cors({
+    credentials: true,
+    origin: ["http://localhost:3000", 'https://upbeat-morse-837452.netlify.app', "*"]
+}));
+const SECRET = 'process.env.SECRET';
+let sess = {
+    secret: SECRET,
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+        secure: false
+    }
+};
+if (process.env.ENV === 'PRODUCTION') {
+    app.set('trust proxy', 1); // trust first proxy
+    sess.cookie.secure = true; // serve secure cookies
+}
+app.use(session(sess));
 app.use(express_1.default.json());
-app.use(cors());
 app.get('/', (req, res) => res.send('Welcome!'));
 app.get('/add/:a/:b', (req, res) => res.send(req.params.a + req.params.b));
 // create RESTful Web service API
@@ -48,6 +67,7 @@ const likesController = LikeController_1.default.getInstance(app);
 const bookmarkController = BookmarkController_1.default.getInstance(app);
 const followController = FollowController_1.default.getInstance(app);
 const messageController = MessageController_1.default.getInstance(app);
+(0, AuthenticationController_1.default)(app);
 /**
  * Start a server listening at port 4000 locally
  * but use environment variable PORT on Heroku if available.
